@@ -1,21 +1,27 @@
 // Simulación de base de datos para el Colegio Nazareth
 const usuariosSIA = [
-    { user: "director", pass: "nazareth2026", rol: "Administrador" },
-    { user: "profe_juan", pass: "docente123", rol: "Docente" },
-    { user: "estudiante01", pass: "alumno456", rol: "Estudiante" }
+    { usuario: "director", clave: "nazareth2026", rol: "Administrador" },
+    { usuario: "profe_juan", clave: "docente123", rol: "Docente" },
+    { usuario: "estudiante01", clave: "alumno456", rol: "Estudiante" }
 ];
 
+// Ruta para el inicio de sesión
 app.post('/login', (req, res) => {
-    const { usuario, password } = req.body;
+    const { usuario, clave } = req.body;
 
-    const encontrado = usuariosSIA.find(u => u.user === usuario && u.pass === password);
+    // Buscamos si el usuario y la clave coinciden
+    const encontrado = usuariosSIA.find(u => u.usuario === usuario && u.clave === clave);
 
     if (encontrado) {
-        res.status(200).json({ 
-            mensaje: "Autenticación satisfactoria en SIA - Colegio Nazareth",
-            rol: encontrado.rol 
+        // Respuesta satisfactoria según la guía
+        res.status(200).json({
+            mensaje: "Autenticación satisfactoria",
+            rol: encontrado.rol
         });
     } else {
-        res.status(401).json({ mensaje: "Error en la autenticación: Usuario o clave incorrectos" });
+        // Respuesta de error según la guía
+        res.status(401).json({ 
+            mensaje: "Error en la autenticación" 
+        });
     }
 });
